@@ -1,0 +1,17 @@
+body{
+    text-align:center;
+    background-color:aquamarine;
+}
+
+.heading{
+    font-size: 23px;
+    margin: 0px;
+    width: 100%;
+}
+
+canvas{
+    border:2px solid black;
+    border-radius: 10px;
+    margin-top: 130px;
+    box-shadow: 5px 5px 5px black;
+}
