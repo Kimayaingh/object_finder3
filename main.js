@@ -8,32 +8,21 @@ status="";
      canvas.center();
 
      video = createCapture(VIDEO);
+     video.size(480,380);
      video.hide();
+     
  }
 
  function start(){
      document.getElementById("status").innerHTML = "Status = Detecting Objects";
      objectDetector = ml5.objectDetector("cocossd", modelLoaded);
-     document.getElementById(object_name).innerHTML="input";
+    object_name = document.getElementById("object_name").value;
 
-     if (objects[i].label = object_name){
-        object_name_webcamLiveView.stop()
-        objectDetector.detect(gotResult);
-        document.getElementById("detecting_objects").innerHTML= object_name +  "" + "has been successfully detected";
-
-
-        var synth = window.speechSynthesis;
-        speak_data_1 = "object mentioned found"
-        var utterThis = new SpeechSynthesisUtterance(speak_data_1);
-        synth.speak(utterThis);
+     
     }
-        else{
-            document.getElementById("detecting_objects").innerHTML= object_name +  "" + "has not been detected";
-        
+       
+ 
 
-     }
-    
- }
 
  function modelLoaded(){
      console.log("model loaded");
@@ -49,7 +38,7 @@ status="";
         objectDetector.detect(video,gotResult);
         for(i=0; i< objects.length; i++){
             document.getElementById("status").innerHTML="Status: Objects detected";
-            document.getElementById("number_of_objects").innerHTML="Number of objects are" + objects.length;
+           
 
             fill("#FF0000");
             percent= floor(objects[i].confidence * 100);
@@ -58,12 +47,30 @@ status="";
             stroke("#FF0000");
             rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
 
+            if (objects[i].label == object_name){
+                video.stop();
+                objectDetector.detect(gotResult);
+                document.getElementById("detecting_objects").innerHTML= object_name + "" + " has been successfully detected";
+        
+        
+                var synth = window.speechSynthesis;
+                var utterThis = new SpeechSynthesisUtterance(object_name+"found");
+                synth.speak(utterThis);
+
         }
         
+        else{
+            document.getElementById("detecting_objects").innerHTML= object_name +  "" + "has not been detected";
+             
+
+     }
+    
 
     }
 
  }
+}
+
 
 
 
